@@ -63,10 +63,10 @@ function LogInForm() { //fix when typing you have to reclick on the box after ea
 
     const handleSubmit = (event: any) => { //db logic once setup
         event.preventDefault();
-        if(username.length < 2){
+        if (username.length < 2) {
             alert('invalid username length') //change
         }
-        if(password.length < 8){
+        if (password.length < 8) {
             alert('invalid password length') //change
         }
     };

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import {useNavigate} from 'react-router'
 
 const Container = styled.div`
 display: block;
@@ -43,12 +43,13 @@ transform: translateY(4px);
 }
 `
 const P = styled.p`
-font-size: 16px;
+font-size: 12px;
 `
 const Label = styled.label`
 font-size: 24px;
 `
-function RegistrationForm(){
+function RegistrationForm() {
+    let navigate = useNavigate();
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [username, setUsername] = useState('');
@@ -72,40 +73,40 @@ function RegistrationForm(){
     }
     const handleSubmit = (event: any) => {
         event.preventDefault(); //post to db
-        if(firstname.length < 3 || !/^[a-z]+$/i.test(firstname)){
+        if (firstname.length < 3 || !/^[a-z]+$/i.test(firstname) || lastname.length < 3 || !/^[a-z]+$/i.test(firstname) || username.length < 3 || email.length < 5 || password.length < 8) {
             setFirstname('')
-            alert('invalid input') //change
-        }
-        if(lastname.length < 3 || !/^[a-z]+$/i.test(firstname)){
             setLastname('')
-        }
-        if(password.length < 8){
+            setUsername('')
+            setEmail('')
             setPassword('')
+            alert('invalid input') //change
+        } else {
+            navigate('/thought-wall', {state: {username: username}})
         }
     };
     return (
         <>
-        <Container>
-        <h1>Create a user</h1>
-        <Form id='registration-form'>
-            <Label htmlFor='firstname'>Firstname</Label>
-            <Input id='firstname' type='text' placeholder='Enter firstname' value={firstname} onChange={handleFirstname} required></Input>
+            <Container>
+                <h1>Create a user</h1>
+                <Form>
+                    <Label htmlFor='firstname'>Firstname</Label>
+                    <Input type='text' placeholder='Enter firstname' value={firstname} onChange={handleFirstname} required></Input>
 
-            <Label htmlFor='lastname'>Lastname</Label>
-            <Input id='lastname' type='text' placeholder='Enter lastname' value={lastname} onChange={handleLastname} required></Input>
+                    <Label htmlFor='lastname'>Lastname</Label>
+                    <Input type='text' placeholder='Enter lastname' value={lastname} onChange={handleLastname} required></Input>
 
-            <Label htmlFor='username'>Username</Label>
-            <Input id='username' type='text' placeholder='Enter username' value={username} onChange={handleUsername} required></Input>
+                    <Label htmlFor='username'>Username</Label>
+                    <Input type='text' placeholder='Enter username' value={username} onChange={handleUsername} required></Input>
 
-            <Label htmlFor='email'>Email</Label>
-            <Input id='email' type='email' placeholder='Enter email' value={email} onChange={handleEmail} required></Input>
+                    <Label htmlFor='email'>Email</Label>
+                    <Input type='email' placeholder='Enter email' value={email} onChange={handleEmail} required></Input>
 
-            <Label htmlFor='password'>Password</Label>
-            <Input id='password' type='password' placeholder='Enter password' value={password} onChange={handlePassword} required></Input>
-            <P>Must be 8 characters long</P>
-            <Button id='submit-btn' onClick={handleSubmit}>Submit</Button>
-        </Form>
-        </Container>
+                    <Label htmlFor='password'>Password</Label>
+                    <Input type='password' placeholder='Enter password' value={password} onChange={handlePassword} required></Input>
+                    <P>Must be 8 characters long</P>
+                        <Button onClick={handleSubmit}>Submit</Button>
+                </Form>
+            </Container>
         </>
     )
 }

@@ -1,8 +1,10 @@
+import {useLocation} from 'react-router-dom'
 
 function ThoughtWall(){
+    const location = useLocation();
     return (
         <>
-        <h1>Current user is: </h1>
+        <h1>Current user: {location.state.username}</h1>
         </>
     )
 }
