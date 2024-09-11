@@ -1,19 +1,17 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import LogIn from "../Components/LogIn";
-import ThoughtWall from "../Components/ThoughtWall";
-import CreateUser from "../Components/CreateUser";
-import Header from "../Components/Header";
-import Home from "../Components/Home";
+import LogInForm from "./Components/LogInForm";
+import ThoughtWall from "./Components/ThoughtWall";
+import RegistrationForm from "./Components/RegistrationForm";
+import Header from "./Components/Header";
 
 function App() {
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/homepage" element={<LogIn />} />
-        <Route path="/homepage/registration" element={<CreateUser />} />
+        <Route path="/" element={<LogInForm />} />
+        <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/thought-wall" element={<ThoughtWall />} />
       </Routes>
     </>
